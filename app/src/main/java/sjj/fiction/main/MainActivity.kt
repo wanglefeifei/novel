@@ -12,6 +12,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import org.jetbrains.anko.indeterminateProgressDialog
@@ -26,8 +27,10 @@ import sjj.fiction.binding.DataBindingTest
 import sjj.fiction.books.BookrackFragment
 import sjj.fiction.main.impl.MainPresenter
 import sjj.fiction.model.BookGroup
+import sjj.fiction.model.User
 import sjj.fiction.search.SearchFragment
 import sjj.fiction.util.*
+import javax.inject.Inject
 
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, MainContract.View {
@@ -36,13 +39,19 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     private lateinit var presenter: MainContract.Presenter
     private var searchDialog: ProgressDialog? = null
     private val toggle by lazy { ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) }
+
+    @Inject
+    lateinit var aa:User
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-
+        Log.e(aa)
+        Log.e(AppConfig.app)
         nav_view.setNavigationItemSelectedListener(this)
         showBooksFragment(true)
         searchText.setOnClickListener {

@@ -8,11 +8,10 @@ import com.google.gson.reflect.TypeToken
 import sjj.alog.Log
 import sjj.fiction.util.gson
 import java.lang.reflect.Type
+import javax.inject.Inject
 import kotlin.reflect.KProperty
 
 object AppConfig {
-
-
 //    var http302Url by sharedPreferencesDelegate("")
 
     val ttf by liveDataDelegate("Roboto-Black.ttf")
